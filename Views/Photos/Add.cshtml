@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model aplikacja_zdjecia_z_wakacji.Models.Post
+
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h1>Dodawanie posta</h1>
+
+<br />
+<a asp-controller="Photos" asp-action="Index" class="btn btn-primary btn-lg">Wróć</a>
+<br />
+
+<form asp-controller="Photos" asp-action="Add" method="Post">
+    <div class="form-group">
+        <label asp-for="Nazwa">Nazwa: </label>
+        <input asp-for="Nazwa" type="text" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Miejsce">Miejsce: </label>
+        <input asp-for="Miejsce" type="text" class="form-control" placeholder="Kraj, Miasto" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Opis">Opis: </label>
+        <textarea asp-for="Opis" class="form-control" id="exampleFormControlTextarea1"></textarea>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <label asp-for="Photo" for="exampleFormControlFile1">Zdjęcie:</label>
+        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+    </div>
+    <br />
+
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+        <label class="form-check-label" for="invalidCheck2"> Potwierdzam, że posiadam prawa do zdjęcia </label>
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-primary btn-lg">Zatwierdź</button>
+</form>

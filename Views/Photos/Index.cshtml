@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model List<aplikacja_zdjecia_z_wakacji.Models.Post>
+
+@{
+}
+
+<h1 class="text-center">Strona główna</h1>
+
+<br />
+<p class="text-center">
+    <a asp-controller="Photos" asp-action="Add" class="btn btn-primary btn-lg">Dodaj własne zdjęcie</a>
+</p>
+<br />
+
+<div class="card-deck">
+    @for (int i = Model.Count() - 1; i >= 0; i--)
+    {
+        <div class="card text-center">
+            <img class="card-img-top" src="~/beach.png" alt="photo">
+            <div class="card-body">
+                <h5 class="card-title">@Model[i].Nazwa</h5>
+                <p class="card-text"><small class="text-muted">@Model[i].Data</small></p>
+                <p class="card-text">@Model[i].Miejsce</p>
+                <p class="card-text">@Model[i].Opis</p>
+            </div>
+            <div class="card-body">
+                <a asp-controller="Photos" asp-action="Details" asp-route-id=@Model[i].Id class="btn btn-primary">Szczegóły</a>
+            </div>
+        </div>
+        <br />
+    }
+</div>
