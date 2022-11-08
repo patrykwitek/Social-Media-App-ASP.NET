@@ -1,0 +1,1 @@
+# aplikacja_zdjecia_z_wakacji
