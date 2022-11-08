@@ -23,19 +23,32 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
 
         [Route("DodawaniePosta")]
         [HttpPost]
-        public IActionResult Add(Post post)
+        public IActionResult Add([FromForm] Post post)
         {
-            post.Id = liczba_postow;
-            post.Data = DateTime.Now;
-            liczba_postow++;
-            posts.Add(post);
-            return View("index", posts);
+            if (ModelState.IsValid)
+            {
+                post.Id = liczba_postow;
+                post.Data = DateTime.Now;
+                liczba_postow++;
+                posts.Add(post);
+                return View("index", posts);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [Route("Szczegoly")]
-        public IActionResult Details([FromRoute] int id)
+        public IActionResult Details(int id)
         {
-            Post post_szczegolowy = posts[id];
+            Post post_szczegolowy = posts.FirstOrDefault(e => e.Id == id);
+
+            if (post_szczegolowy == null)
+            {
+                return NotFound();
+            }
+
             return View(post_szczegolowy);
         }
     }
