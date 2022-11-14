@@ -6,9 +6,9 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
 {
     public class PhotosController : Controller
     {
+        private static AppDbContext context = new AppDbContext();
         public static List<Post> posts = new List<Post>();
 
-        public static int liczba_postow = 0;
         public IActionResult Index()
         {
             return View(posts);
@@ -25,10 +25,10 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
         {
             if (ModelState.IsValid)
             {
-                post.Id = liczba_postow;
                 post.Data = DateTime.Now;
-                liczba_postow++;
-                posts.Add(post);
+                context.Photos.Add(post);
+                context.SaveChanges();
+                posts = context.Photos.ToList();
                 return View("index", posts);
             }
             else
