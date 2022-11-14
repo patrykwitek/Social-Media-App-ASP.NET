@@ -14,14 +14,12 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
             return View(posts);
         }
 
-        [Route("DodawaniePosta")]
         [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
 
-        [Route("DodawaniePosta")]
         [HttpPost]
         public IActionResult Add([FromForm] Post post)
         {
@@ -38,9 +36,8 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
                 return View();
             }
         }
-
-        [Route("Szczegoly")]
-        public IActionResult Details(int id)
+        
+        public IActionResult Details([FromRoute] int id)
         {
             Post post_szczegolowy = posts.FirstOrDefault(e => e.Id == id);
 

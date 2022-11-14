@@ -15,6 +15,10 @@
 <br />
 
 <form asp-controller="Photos" asp-action="Add" method="Post">
+
+    <br/>
+    <div asp-validation-summary="All" class="text-danger" > </div>
+
     <div class="form-group">
         <label asp-for="Nazwa">Nazwa: </label>
         <input asp-for="Nazwa" type="text" class="form-control" />
