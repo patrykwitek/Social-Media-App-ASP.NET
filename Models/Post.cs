@@ -6,6 +6,7 @@ namespace aplikacja_zdjecia_z_wakacji.Models
     public class Post
     {
         [HiddenInput]
+        [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Podanie nazwy wymagane!")]
         public string Nazwa { get; set; }

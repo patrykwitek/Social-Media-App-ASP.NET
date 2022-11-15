@@ -7,7 +7,7 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
     public class PhotosController : Controller
     {
         private static AppDbContext context = new AppDbContext();
-        public static List<Post> posts = new List<Post>();
+        public static List<Post> posts = context.Photos.ToList();
 
         public IActionResult Index()
         {
