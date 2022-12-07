@@ -15,13 +15,13 @@ namespace aplikacjazdjeciazwakacji.Migrations
                 name: "Photos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Nazwa = table.Column<string>(type: "TEXT", nullable: false),
-                    Miejsce = table.Column<string>(type: "TEXT", nullable: false),
-                    Opis = table.Column<string>(type: "TEXT", maxLength: 1000, nullable: false),
-                    Photo = table.Column<string>(type: "TEXT", nullable: true),
-                    Data = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nazwa = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Miejsce = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Opis = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
+                    Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Data = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
