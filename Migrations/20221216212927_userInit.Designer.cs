@@ -12,7 +12,7 @@ using aplikacja_zdjecia_z_wakacji.Data;
 namespace aplikacjazdjeciazwakacji.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20221207214355_userInit")]
+    [Migration("20221216212927_userInit")]
     partial class userInit
     {
         /// <inheritdoc />

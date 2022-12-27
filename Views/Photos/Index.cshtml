@@ -22,11 +22,13 @@
             <img class="card-img-top" src="~/beach.png" alt="photo">
             <div class="card-body">
                 <h5 class="card-title">@Model[i].Nazwa</h5>
-                <p class="card-text"><small class="text-muted">@Model[i].Data</small></p>
+                <p class="card-text"><small class="text-muted">Dodane przez: @Model[i].User @Model[i].Data</small></p>
                 <p class="card-text">@Model[i].Miejsce</p>
                 <p class="card-text">@Model[i].Opis</p>
             </div>
             <div class="card-body">
+                <a asp-controller="Photos" asp-action="AddComment" asp-route-id=@Model[i].Id class ="btn btn-success">Dodaj komentarz</a>
+                <a asp-controller="Photos" asp-action="SeeComments" asp-route-id=@Model[i].Id class="btn btn-primary">Komentarze</a>
                 <a asp-controller="Photos" asp-action="Details" asp-route-id=@Model[i].Id class="btn btn-primary">Szczegóły</a>
             </div>
         </div>

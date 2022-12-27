@@ -1,0 +1,33 @@
+﻿@model aplikacja_zdjecia_z_wakacji.Models.Comment
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    ViewData["Title"] = "AddComment";
+}
+
+<h1>Dodawanie komentarza</h1>
+
+<br />
+<a asp-controller="Photos" asp-action="Index" class="btn btn-primary btn-lg">Wróć</a>
+<br />
+
+<form asp-controller="Photos" asp-action="AddComment" method="Post">
+
+    <br />
+    <div asp-validation-summary="All" class="text-danger"> </div>
+
+    <div class="form-group">
+        <label asp-for="Tresc">Wprowadź treść: </label>
+        <textarea asp-for="Tresc" class="form-control" id="exampleFormControlTextarea1"></textarea>
+    </div>
+
+    <input asp-for="User" type="text" class="form-control" value=@User.Identity.Name hidden />
+    <input asp-for="PostId" type="text" class="form-control" value=@ViewBag.Id hidden />
+
+    <br />
+
+    <button type="submit" class="btn btn-primary btn-lg">Dodaj komentarz</button>
+</form>

@@ -5,6 +5,16 @@ namespace aplikacja_zdjecia_z_wakacji.Models
 {
     public class Post
     {
+        public Post()
+        {
+            Comments = new List<Comment>();
+
+            Comment comment = new Comment();
+            comment.Tresc = "Test222";
+            comment.User = "user";
+            Comments.Add(comment);
+        }
+
         [HiddenInput]
         [Key]
         public int Id { get; set; }
@@ -17,5 +27,8 @@ namespace aplikacja_zdjecia_z_wakacji.Models
         public string Opis { get; set; }
         public string? Photo { get; set; }
         public DateTime Data { get; set; }
+        [HiddenInput]
+        public string User { get; set; }
+        virtual public List<Comment> Comments { get; set; }
     }
 }
