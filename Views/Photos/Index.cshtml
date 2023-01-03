@@ -19,7 +19,7 @@
     @for (int i = Model.Count() - 1; i >= 0; i--)
     {
         <div class="card text-center">
-            <img class="card-img-top" src="~/beach.png" alt="photo">
+            <img class="card-img-top" src="@("~/Images/" + Model[i].FileName)" asp-append-version="true" alt="photo">
             <div class="card-body">
                 <h5 class="card-title">@Model[i].Nazwa</h5>
                 <p class="card-text"><small class="text-muted">Dodane przez: @Model[i].User @Model[i].Data</small></p>

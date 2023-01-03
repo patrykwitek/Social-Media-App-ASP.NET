@@ -14,7 +14,7 @@
 <a asp-controller="Photos" asp-action="Index" class="btn btn-primary btn-lg">Wróć</a>
 <br />
 
-<form asp-controller="Photos" asp-action="Add" method="Post">
+<form asp-controller="Photos" asp-action="Add" method="Post" enctype="multipart/form-data">
 
     <br/>
     <div asp-validation-summary="ModelOnly" class="text-danger" > </div>
@@ -46,8 +46,11 @@
     <input asp-for="User" type="text" class="form-control" value=@User.Identity.Name hidden/>
     <br />
     <div class="form-group">
-        <label asp-for="Photo" for="exampleFormControlFile1">Zdjęcie:</label>
-        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        <div>
+            <span asp-validation-for="PhotoPath" class="text-danger"></span>
+        </div>
+        <label asp-for="PhotoPath">Zdjęcie:</label>
+        <input asp-for="PhotoPath" accept="image/*">
     </div>
     <br />
 

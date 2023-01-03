@@ -2,6 +2,7 @@
 using aplikacja_zdjecia_z_wakacji.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System.Xml.Linq;
@@ -11,9 +12,11 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
     public class PhotosController : Controller
     {
         private readonly IPostService _postService;
-        public PhotosController(AppDbContext context, IPostService postService)
+        private readonly IWebHostEnvironment _hostEnvironment;
+        public PhotosController(AppDbContext context, IPostService postService, IWebHostEnvironment hostEnvironment)
         {
             _postService = postService;
+            _hostEnvironment = hostEnvironment;
         }
         public IActionResult Index()
         {
@@ -28,17 +31,29 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add([FromForm] Post post)
+        public async Task<IActionResult> Add([FromForm] Post post)
         {
             if (ModelState.IsValid)
             {
                 post.Data = DateTime.Now;
+
+                string root = _hostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(post.PhotoPath.FileName);
+                string extension = Path.GetExtension(post.PhotoPath.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                post.FileName = fileName;
+                string path = Path.Combine(root + "/Images", fileName);
+                using(var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await post.PhotoPath.CopyToAsync(fileStream);
+                }
+
                 _postService.Save(post);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                return View();
+                return View(post);
             }
         }
         

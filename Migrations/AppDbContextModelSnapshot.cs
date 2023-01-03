@@ -59,7 +59,7 @@ namespace aplikacjazdjeciazwakacji.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("PostId")
+                    b.Property<int?>("PostId")
                         .HasColumnType("int");
 
                     b.Property<string>("User")
@@ -84,6 +84,10 @@ namespace aplikacjazdjeciazwakacji.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Miejsce")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -96,9 +100,6 @@ namespace aplikacjazdjeciazwakacji.Migrations
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("User")
                         .IsRequired()
@@ -124,9 +125,7 @@ namespace aplikacjazdjeciazwakacji.Migrations
                 {
                     b.HasOne("aplikacja_zdjecia_z_wakacji.Models.Post", "Post")
                         .WithMany("Likes")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PostId");
 
                     b.Navigation("Post");
                 });

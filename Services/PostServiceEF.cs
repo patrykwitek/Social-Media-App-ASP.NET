@@ -55,7 +55,8 @@ namespace aplikacja_zdjecia_z_wakacji.Services
                     find.User = post.User;
                     find.Data = post.Data;
                     find.Nazwa = post.Nazwa;
-                    find.Photo = post.Photo;
+                    find.PhotoPath = post.PhotoPath;
+                    find.FileName = post.FileName;
 
                     find.Comments = post.Comments;
 
