@@ -19,5 +19,11 @@ namespace aplikacja_zdjecia_z_wakacji.Services
         public void SaveChanges();
 
         public Post? FindByIdWithComments(int? id);
+
+        public Post? FindByIdWithLikes(int? id);
+
+        public int AddLikeToPost(Like like, int id);
+
+        public int DeleteLikeFromPost(Like like, int id);
     }
 }

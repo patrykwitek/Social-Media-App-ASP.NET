@@ -6,6 +6,7 @@ namespace aplikacja_zdjecia_z_wakacji.Models
     {
         public DbSet<Post> Photos { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Like> Likes { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) 
         {
         }

@@ -79,5 +79,28 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
             if (post == null) return NotFound();
             return View(post);
         }
+        [Authorize]
+        public IActionResult Like([FromRoute] int id)
+        {
+            Post post = _postService.FindByIdWithLikes(id);
+
+            for(int i=0; i<post.Likes.Count(); i++)
+            {
+                if(post.Likes[i].User == User.Identity.Name)
+                {
+                    Like delete_like = post.Likes[i];
+                    _postService.DeleteLikeFromPost(delete_like, id);
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+
+            Like add_like = new Like();
+
+            add_like.User = User.Identity.Name;
+            _postService.AddLikeToPost(add_like, id);
+
+            if (post == null) return NotFound();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

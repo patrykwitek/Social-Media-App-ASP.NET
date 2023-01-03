@@ -8,11 +8,7 @@ namespace aplikacja_zdjecia_z_wakacji.Models
         public Post()
         {
             Comments = new List<Comment>();
-
-            Comment comment = new Comment();
-            comment.Tresc = "Test222";
-            comment.User = "user";
-            Comments.Add(comment);
+            Likes = new List<Like>();
         }
 
         [HiddenInput]
@@ -30,5 +26,6 @@ namespace aplikacja_zdjecia_z_wakacji.Models
         [HiddenInput]
         public string User { get; set; }
         virtual public List<Comment> Comments { get; set; }
+        virtual public List<Like> Likes { get; set; }
     }
 }

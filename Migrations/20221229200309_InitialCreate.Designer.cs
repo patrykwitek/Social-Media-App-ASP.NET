@@ -12,7 +12,7 @@ using aplikacja_zdjecia_z_wakacji.Models;
 namespace aplikacjazdjeciazwakacji.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221221160748_InitialCreate")]
+    [Migration("20221229200309_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -52,6 +52,28 @@ namespace aplikacjazdjeciazwakacji.Migrations
                     b.HasIndex("PostId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Like", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("User")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Post", b =>
@@ -101,9 +123,22 @@ namespace aplikacjazdjeciazwakacji.Migrations
                     b.Navigation("Post");
                 });
 
+            modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Like", b =>
+                {
+                    b.HasOne("aplikacja_zdjecia_z_wakacji.Models.Post", "Post")
+                        .WithMany("Likes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Post", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Likes");
                 });
 #pragma warning restore 612, 618
         }

@@ -51,6 +51,28 @@ namespace aplikacjazdjeciazwakacji.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Like", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("User")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -98,9 +120,22 @@ namespace aplikacjazdjeciazwakacji.Migrations
                     b.Navigation("Post");
                 });
 
+            modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Like", b =>
+                {
+                    b.HasOne("aplikacja_zdjecia_z_wakacji.Models.Post", "Post")
+                        .WithMany("Likes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Post", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Likes");
                 });
 #pragma warning restore 612, 618
         }

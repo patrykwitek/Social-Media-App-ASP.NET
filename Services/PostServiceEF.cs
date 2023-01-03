@@ -81,9 +81,15 @@ namespace aplikacja_zdjecia_z_wakacji.Services
             return id is null ? null : find;
         }
 
+        public Post? FindByIdWithLikes(int? id)
+        {
+            Post? find = _context.Photos.Include(p => p.Likes).Where(p => p.Id == id).FirstOrDefault();
+            return id is null ? null : find;
+        }
+
         public ICollection<Post> FindAll()
         {
-            return _context.Photos.ToList();
+            return _context.Photos.Include(p => p.Likes).ToList();
         }
 
         public void SaveChanges()
@@ -106,6 +112,31 @@ namespace aplikacja_zdjecia_z_wakacji.Services
             _context.SaveChanges();
 
             return comment.Id;
+        }
+        public int AddLikeToPost(Like like, int id)
+        {
+            Post? find = _context.Photos.Include(p => p.Likes).Where(p => p.Id == id).FirstOrDefault();
+            if (find is null) return -1;
+
+            find.Likes.Add(like);
+
+            _context.Photos.Update(find);
+            _context.SaveChanges();
+
+            return like.Id;
+        }
+        public int DeleteLikeFromPost(Like like, int id)
+        {
+            Post? find = _context.Photos.Include(p => p.Likes).Where(p => p.Id == id).FirstOrDefault();
+            if (find is null) return -1;
+
+            find.Likes.Remove(like);
+            _context.Likes.Remove(like);
+
+            _context.Photos.Update(find);
+            _context.SaveChanges();
+
+            return like.Id;
         }
     }
 }
