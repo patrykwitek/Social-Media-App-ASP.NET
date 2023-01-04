@@ -139,5 +139,12 @@ namespace aplikacja_zdjecia_z_wakacji.Services
 
             return like.Id;
         }
+
+        public PagingList<Post> FindPage(int page = 1, int size = 3)
+        {
+            int totalCount = _context.Photos.Count();
+            List<Post?> posts = _context.Photos.Skip((page - 1) * size).Take(size).ToList();
+            return PagingList<Post>.Create(posts, totalCount, page, size);
+        }
     }
 }

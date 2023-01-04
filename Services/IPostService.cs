@@ -25,5 +25,7 @@ namespace aplikacja_zdjecia_z_wakacji.Services
         public int AddLikeToPost(Like like, int id);
 
         public int DeleteLikeFromPost(Like like, int id);
+
+        public PagingList<Post> FindPage(int page, int size);
     }
 }

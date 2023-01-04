@@ -23,6 +23,11 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
             return View(_postService.FindAll());
         }
 
+        public IActionResult PagedIndex([FromQuery] int page = 1, [FromQuery] int size = 3)
+        {
+            return View(_postService.FindPage(page, size));
+        }
+
         [HttpGet]
         [Authorize]
         public IActionResult Add()
