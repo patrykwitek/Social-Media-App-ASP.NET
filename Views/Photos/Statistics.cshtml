@@ -1,0 +1,55 @@
+﻿@model List<aplikacja_zdjecia_z_wakacji.Models.Post>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+}
+
+<br />
+
+<h1>Statystyki zdjęć</h1>
+
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Zdjęcie</th>
+            <th scope="col">Id</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Miejsce</th>
+            <th scope="col">Data</th>
+            <th scope="col">Użytkownik</th>
+            <th scope="col">Opis</th>
+            <th scope="col">Nazwa pliku</th>
+            <th scope="col">Liczba komentarzy</th>
+            <th scope="col">Liczba polubień</th>
+            <th scope="col">Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var e in Model){
+            <tr>
+                <td>
+                    <img class="card-img-top" src="@("~/Images/" + @e.FileName)" asp-append-version="true" alt="photo">
+                </td>
+                <td>@e.Id</td>
+                <td>@e.Nazwa</td>
+                <td>@e.Miejsce</td>
+                <td>@e.Data</td>
+                <td>@e.User</td>
+                <td>@e.Opis</td>
+                <td>@e.FileName</td>
+                <td>@e.Comments.Count()</td>
+                <td>@e.Likes.Count()</td>
+                <td>
+                    <button asp-controller="Photos" asp-action="Edit" asp-route-id=@e.Id type ="button" class="btn btn-primary">Edytuj</button>
+                    <br />
+                    <button asp-controller="Photos" asp-action="Delete" asp-route-id=@e.Id type ="button" class="btn btn-danger">Usuń</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

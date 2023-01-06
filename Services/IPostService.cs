@@ -14,6 +14,8 @@ namespace aplikacja_zdjecia_z_wakacji.Services
 
         public ICollection<Post> FindAll();
 
+        public ICollection<Post> FindStatistics();
+
         public int AddCommentToPost(Comment comment, int id);
 
         public void SaveChanges();

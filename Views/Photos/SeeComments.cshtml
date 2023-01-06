@@ -10,9 +10,17 @@
 <h1>Komentarze dotyczące zdjęcia @Model.Nazwa</h1>
 
 <br />
-<h3>Liczba komentarzy: @Model.Comments.Count()</h3>
+@if (@Model.Comments.Count() == 0)
+{
+    <h3>Wygląda na to, że nikt jeszcze nie skomentował tego zdjęcia</h3>
+    <h3>Napisz coś!</h3>
+}
+else
+{
+    <h3>Liczba komentarzy: @Model.Comments.Count()</h3>
+}
 <br />
-<a asp-controller="Photos" asp-action="Index" class="btn btn-primary btn-lg">Wróć</a>
+<a asp-controller="Photos" asp-action="PagedIndex" class="btn btn-primary btn-lg">Wróć</a>
 <br />
 
 <div>

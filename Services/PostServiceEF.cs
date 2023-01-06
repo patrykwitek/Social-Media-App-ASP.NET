@@ -90,7 +90,12 @@ namespace aplikacja_zdjecia_z_wakacji.Services
 
         public ICollection<Post> FindAll()
         {
-            return _context.Photos.Include(p => p.Likes).ToList();
+            return _context.Photos.Include(p => p.Likes).Include(p => p.Comments).ToList();
+        }
+
+        public ICollection<Post> FindStatistics()
+        {
+            return _context.Photos.OrderByDescending(p => p.Likes.Count()).Include(p => p.Likes).Include(p => p.Comments).ToList();
         }
 
         public void SaveChanges()
@@ -142,8 +147,10 @@ namespace aplikacja_zdjecia_z_wakacji.Services
 
         public PagingList<Post> FindPage(int page = 1, int size = 3)
         {
+            if (page > 5000) page = 5000;
+            if (size > 100) size = 100;
             int totalCount = _context.Photos.Count();
-            List<Post?> posts = _context.Photos.Skip((page - 1) * size).Take(size).ToList();
+            List<Post?> posts = _context.Photos.OrderBy(p => p.Data).Skip((page - 1) * size).Take(size).Include(p => p.Likes).Include(p => p.Comments).ToList();
             return PagingList<Post>.Create(posts, totalCount, page, size);
         }
     }

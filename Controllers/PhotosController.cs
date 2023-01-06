@@ -28,6 +28,12 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
             return View(_postService.FindPage(page, size));
         }
 
+        [Authorize(Roles = "admin")]
+        public IActionResult Statistics()
+        {
+            return View(_postService.FindStatistics());
+        }
+
         [HttpGet]
         [Authorize]
         public IActionResult Add()
@@ -54,7 +60,7 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
                 }
 
                 _postService.Save(post);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(PagedIndex));
             }
             else
             {
@@ -89,7 +95,7 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
             {
                 comment.Data = DateTime.Now;
                 _postService.AddCommentToPost(comment, comment.PostId);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(PagedIndex));
             }
             return View(comment);
         }
@@ -99,6 +105,7 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
             if (post == null) return NotFound();
             return View(post);
         }
+
         [Authorize]
         public IActionResult Like([FromRoute] int id)
         {
@@ -110,7 +117,7 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
                 {
                     Like delete_like = post.Likes[i];
                     _postService.DeleteLikeFromPost(delete_like, id);
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(PagedIndex));
                 }
             }
 
@@ -120,7 +127,20 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
             _postService.AddLikeToPost(add_like, id);
 
             if (post == null) return NotFound();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(PagedIndex));
+        }
+
+        [Authorize(Roles = "admin")]
+        public IActionResult Delete()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public IActionResult Edit()
+        {
+            return View();
         }
     }
 }
