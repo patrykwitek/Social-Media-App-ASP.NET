@@ -14,6 +14,8 @@ namespace aplikacja_zdjecia_z_wakacji.Services
 
         public ICollection<Post> FindAll();
 
+        public ICollection<Comment> FindAllComments(int? id);
+
         public ICollection<Post> FindStatistics();
 
         public int AddCommentToPost(Comment comment, int id);
@@ -24,9 +26,15 @@ namespace aplikacja_zdjecia_z_wakacji.Services
 
         public Post? FindByIdWithLikes(int? id);
 
+        public Comment? FindCommentByIdWithLikes(int? id);
+
         public int AddLikeToPost(Like like, int id);
 
+        public int AddLikeToComment(LikeForComment like, int id);
+
         public int DeleteLikeFromPost(Like like, int id);
+
+        public int DeleteLikeFromComment(LikeForComment like, int id);
 
         public PagingList<Post> FindPage(int page, int size);
     }

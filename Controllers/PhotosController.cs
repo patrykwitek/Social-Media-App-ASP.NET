@@ -95,15 +95,13 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
             {
                 comment.Data = DateTime.Now;
                 _postService.AddCommentToPost(comment, comment.PostId);
-                return RedirectToAction(nameof(PagedIndex));
+                return RedirectToAction("SeeComments", new { id = comment.PostId });
             }
             return View(comment);
         }
         public IActionResult SeeComments([FromRoute] int id)
         {
-            Post post = _postService.FindByIdWithComments(id);
-            if (post == null) return NotFound();
-            return View(post);
+            return View(_postService.FindAllComments(id));
         }
 
         [Authorize]
@@ -128,6 +126,30 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
 
             if (post == null) return NotFound();
             return RedirectToAction(nameof(PagedIndex));
+        }
+
+        [Authorize]
+        public IActionResult LikeComment([FromRoute] int id)
+        {
+            Comment? comment = _postService.FindCommentByIdWithLikes(id);
+            if (comment is null) return NotFound();
+
+            for (int i = 0; i < comment.Likes.Count(); i++)
+            {
+                if (comment.Likes[i].User == User.Identity.Name)
+                {
+                    LikeForComment delete_like = comment.Likes[i];
+                    _postService.DeleteLikeFromComment(delete_like, id);
+                    return RedirectToAction("SeeComments", new { id = comment.PostId });
+                }
+            }
+
+            LikeForComment add_like = new LikeForComment();
+
+            add_like.User = User.Identity.Name;
+            _postService.AddLikeToComment(add_like, id);
+
+            return RedirectToAction("SeeComments", new { id = comment.PostId });
         }
 
         [Authorize(Roles = "admin")]

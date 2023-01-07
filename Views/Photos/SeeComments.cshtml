@@ -1,4 +1,4 @@
-﻿@model aplikacja_zdjecia_z_wakacji.Models.Post
+﻿@model List<aplikacja_zdjecia_z_wakacji.Models.Comment>
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -7,32 +7,33 @@
 @{
 }
 
-<h1>Komentarze dotyczące zdjęcia @Model.Nazwa</h1>
+<h1>Komentarze</h1>
 
 <br />
-@if (@Model.Comments.Count() == 0)
+@if (@Model.Count() == 0)
 {
     <h3>Wygląda na to, że nikt jeszcze nie skomentował tego zdjęcia</h3>
     <h3>Napisz coś!</h3>
 }
 else
 {
-    <h3>Liczba komentarzy: @Model.Comments.Count()</h3>
+    <h3>Liczba komentarzy: @Model.Count()</h3>
 }
 <br />
 <a asp-controller="Photos" asp-action="PagedIndex" class="btn btn-primary btn-lg">Wróć</a>
 <br />
 
 <div>
-    @for (int i = Model.Comments.Count() - 1; i >= 0; i--)
+    @for (int i = Model.Count() - 1; i >= 0; i--)
     {
         <div class="card-body">
             <p class="card-text">
                 <small class="text-muted">
-                    Dodane przez: @Model.Comments[i].User @Model.Comments[i].Data
+                    Dodane przez: @Model[i].User @Model[i].Data
                 </small>
             </p>
-            <p class="card-text">@Model.Comments[i].Tresc</p>
+            <p class="card-text">@Model[i].Tresc</p>
+            <a asp-controller="Photos" asp-action="LikeComment" asp-route-id=@Model[i].Id class="btn btn-outline-primary">Polub @Model[i].Likes.Count()</a>
         </div>
 
         if(i != 0){

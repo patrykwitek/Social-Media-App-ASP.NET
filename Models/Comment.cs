@@ -1,10 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
 namespace aplikacja_zdjecia_z_wakacji.Models
 {
     public class Comment
     {
+        public Comment()
+        {
+            Likes = new List<LikeForComment>();
+        }
+
         [HiddenInput]
         [Key]
         public int Id { get; set; }
@@ -14,5 +20,6 @@ namespace aplikacja_zdjecia_z_wakacji.Models
         public DateTime Data { get; set; }
         public int PostId { get; set; }
         public Post? Post { get; set; }
+        virtual public List<LikeForComment> Likes { get; set; }
     }
 }

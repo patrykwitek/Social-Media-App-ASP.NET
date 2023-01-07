@@ -59,6 +59,9 @@ namespace aplikacjazdjeciazwakacji.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CommentId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("PostId")
                         .HasColumnType("int");
 
@@ -68,9 +71,33 @@ namespace aplikacjazdjeciazwakacji.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CommentId");
+
                     b.HasIndex("PostId");
 
                     b.ToTable("Likes");
+                });
+
+            modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.LikeForComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CommentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("User")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
+
+                    b.ToTable("LikesForComment");
                 });
 
             modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Post", b =>
@@ -123,11 +150,29 @@ namespace aplikacjazdjeciazwakacji.Migrations
 
             modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Like", b =>
                 {
+                    b.HasOne("aplikacja_zdjecia_z_wakacji.Models.Comment", null)
+                        .WithMany("Likes")
+                        .HasForeignKey("CommentId");
+
                     b.HasOne("aplikacja_zdjecia_z_wakacji.Models.Post", "Post")
                         .WithMany("Likes")
                         .HasForeignKey("PostId");
 
                     b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.LikeForComment", b =>
+                {
+                    b.HasOne("aplikacja_zdjecia_z_wakacji.Models.Comment", "Comment")
+                        .WithMany()
+                        .HasForeignKey("CommentId");
+
+                    b.Navigation("Comment");
+                });
+
+            modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Comment", b =>
+                {
+                    b.Navigation("Likes");
                 });
 
             modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Post", b =>

@@ -88,9 +88,20 @@ namespace aplikacja_zdjecia_z_wakacji.Services
             return id is null ? null : find;
         }
 
+        public Comment? FindCommentByIdWithLikes(int? id)
+        {
+            Comment? find = _context.Comments.Include(p => p.Likes).Where(p => p.Id == id).FirstOrDefault();
+            return id is null ? null : find;
+        }
+
         public ICollection<Post> FindAll()
         {
             return _context.Photos.Include(p => p.Likes).Include(p => p.Comments).ToList();
+        }
+
+        public ICollection<Comment> FindAllComments(int? id)
+        {
+            return _context.Comments.Include(p => p.Likes).Where(p => p.PostId == id).ToList();
         }
 
         public ICollection<Post> FindStatistics()
@@ -119,6 +130,7 @@ namespace aplikacja_zdjecia_z_wakacji.Services
 
             return comment.Id;
         }
+
         public int AddLikeToPost(Like like, int id)
         {
             Post? find = _context.Photos.Include(p => p.Likes).Where(p => p.Id == id).FirstOrDefault();
@@ -131,6 +143,20 @@ namespace aplikacja_zdjecia_z_wakacji.Services
 
             return like.Id;
         }
+
+        public int AddLikeToComment(LikeForComment like, int id)
+        {
+            Comment? find = _context.Comments.Include(p => p.Likes).Where(p => p.Id == id).FirstOrDefault();
+            if (find is null) return -1;
+
+            find.Likes.Add(like);
+
+            _context.Comments.Update(find);
+            _context.SaveChanges();
+
+            return like.Id;
+        }
+
         public int DeleteLikeFromPost(Like like, int id)
         {
             Post? find = _context.Photos.Include(p => p.Likes).Where(p => p.Id == id).FirstOrDefault();
@@ -140,6 +166,20 @@ namespace aplikacja_zdjecia_z_wakacji.Services
             _context.Likes.Remove(like);
 
             _context.Photos.Update(find);
+            _context.SaveChanges();
+
+            return like.Id;
+        }
+
+        public int DeleteLikeFromComment(LikeForComment like, int id)
+        {
+            Comment? find = _context.Comments.Include(p => p.Likes).Where(p => p.Id == id).FirstOrDefault();
+            if (find is null) return -1;
+
+            find.Likes.Remove(like);
+            _context.LikesForComment.Remove(like);
+
+            _context.Comments.Update(find);
             _context.SaveChanges();
 
             return like.Id;
