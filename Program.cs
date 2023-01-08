@@ -16,7 +16,7 @@ builder.Services.AddDbContext<UserContext>(
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<UserContext>();
-builder.Services.AddScoped<IPostService, PostServiceEF>();
+builder.Services.AddScoped<IPhotosService, PhotosServiceEF>();
 
 var app = builder.Build();
 

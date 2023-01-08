@@ -1,4 +1,4 @@
-﻿@model PagingList<aplikacja_zdjecia_z_wakacji.Models.Post>
+﻿@model PagingList<aplikacja_zdjecia_z_wakacji.Models.Photo>
 
 @{
     ViewData["Title"] = "Index";
@@ -12,6 +12,10 @@
     <a asp-controller="Photos" asp-action="Statistics" class="btn btn-outline-primary btn-lg">Statystyki</a>
 </p>
 <br />
+@if(Model.Data.Count() == 0) {
+    <h3 class="text-center">Brak zdjęć</h3>
+    <br />
+}
 
 <div class="card-deck">
 

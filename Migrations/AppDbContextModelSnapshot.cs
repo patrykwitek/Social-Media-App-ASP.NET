@@ -33,7 +33,7 @@ namespace aplikacjazdjeciazwakacji.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PostId")
+                    b.Property<int>("PhotoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Tresc")
@@ -46,7 +46,7 @@ namespace aplikacjazdjeciazwakacji.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PostId");
+                    b.HasIndex("PhotoId");
 
                     b.ToTable("Comments");
                 });
@@ -59,10 +59,7 @@ namespace aplikacjazdjeciazwakacji.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CommentId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PostId")
+                    b.Property<int>("PostId")
                         .HasColumnType("int");
 
                     b.Property<string>("User")
@@ -70,8 +67,6 @@ namespace aplikacjazdjeciazwakacji.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CommentId");
 
                     b.HasIndex("PostId");
 
@@ -86,7 +81,7 @@ namespace aplikacjazdjeciazwakacji.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CommentId")
+                    b.Property<int>("CommentId")
                         .HasColumnType("int");
 
                     b.Property<string>("User")
@@ -100,7 +95,7 @@ namespace aplikacjazdjeciazwakacji.Migrations
                     b.ToTable("LikesForComment");
                 });
 
-            modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Post", b =>
+            modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Photo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -139,9 +134,9 @@ namespace aplikacjazdjeciazwakacji.Migrations
 
             modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Comment", b =>
                 {
-                    b.HasOne("aplikacja_zdjecia_z_wakacji.Models.Post", "Post")
+                    b.HasOne("aplikacja_zdjecia_z_wakacji.Models.Photo", "Post")
                         .WithMany("Comments")
-                        .HasForeignKey("PostId")
+                        .HasForeignKey("PhotoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -150,13 +145,11 @@ namespace aplikacjazdjeciazwakacji.Migrations
 
             modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Like", b =>
                 {
-                    b.HasOne("aplikacja_zdjecia_z_wakacji.Models.Comment", null)
+                    b.HasOne("aplikacja_zdjecia_z_wakacji.Models.Photo", "Post")
                         .WithMany("Likes")
-                        .HasForeignKey("CommentId");
-
-                    b.HasOne("aplikacja_zdjecia_z_wakacji.Models.Post", "Post")
-                        .WithMany("Likes")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Post");
                 });
@@ -164,8 +157,10 @@ namespace aplikacjazdjeciazwakacji.Migrations
             modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.LikeForComment", b =>
                 {
                     b.HasOne("aplikacja_zdjecia_z_wakacji.Models.Comment", "Comment")
-                        .WithMany()
-                        .HasForeignKey("CommentId");
+                        .WithMany("Likes")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Comment");
                 });
@@ -175,7 +170,7 @@ namespace aplikacjazdjeciazwakacji.Migrations
                     b.Navigation("Likes");
                 });
 
-            modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Post", b =>
+            modelBuilder.Entity("aplikacja_zdjecia_z_wakacji.Models.Photo", b =>
                 {
                     b.Navigation("Comments");
 

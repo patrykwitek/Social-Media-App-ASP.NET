@@ -18,8 +18,8 @@ namespace aplikacja_zdjecia_z_wakacji.Models
         public string Tresc { get; set; }
         public string User { get; set; }
         public DateTime Data { get; set; }
-        public int PostId { get; set; }
-        public Post? Post { get; set; }
+        public int PhotoId { get; set; }
+        public Photo? Post { get; set; }
         virtual public List<LikeForComment> Likes { get; set; }
     }
 }

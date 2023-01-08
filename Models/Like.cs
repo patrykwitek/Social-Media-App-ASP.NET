@@ -9,6 +9,6 @@ namespace aplikacja_zdjecia_z_wakacji.Models
         [Key]
         public int Id { get; set; }
         public string User { get; set; }
-        public Post? Post { get; set; }
+        public Photo? Post { get; set; }
     }
 }

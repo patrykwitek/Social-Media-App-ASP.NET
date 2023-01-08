@@ -1,4 +1,4 @@
-﻿@model List<aplikacja_zdjecia_z_wakacji.Models.Post>
+﻿@model List<aplikacja_zdjecia_z_wakacji.Models.Photo>
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,8 +12,15 @@
 <br />
 <p class="text-center">
     <a asp-controller="Photos" asp-action="Add" class="btn btn-primary btn-lg">Dodaj własne zdjęcie</a>
+    <a asp-controller="Photos" asp-action="Statistics" class="btn btn-outline-primary btn-lg">Statystyki</a>
 </p>
 <br />
+
+@if (Model.Count() == 0)
+{
+    <h3 class="text-center">Brak zdjęć</h3>
+    <br />
+}
 
 <div class="card-deck">
 @for (int i = Model.Count() - 1; i >= 0; i--)

@@ -11,27 +11,27 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
 {
     public class PhotosController : Controller
     {
-        private readonly IPostService _postService;
+        private readonly IPhotosService _photosService;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public PhotosController(AppDbContext context, IPostService postService, IWebHostEnvironment hostEnvironment)
+        public PhotosController(AppDbContext context, IPhotosService photosService, IWebHostEnvironment hostEnvironment)
         {
-            _postService = postService;
+            _photosService = photosService;
             _hostEnvironment = hostEnvironment;
         }
         public IActionResult Index()
         {
-            return View(_postService.FindAll());
+            return View(_photosService.FindAll());
         }
 
         public IActionResult PagedIndex([FromQuery] int page = 1, [FromQuery] int size = 3)
         {
-            return View(_postService.FindPage(page, size));
+            return View(_photosService.FindPage(page, size));
         }
 
         [Authorize(Roles = "admin")]
         public IActionResult Statistics()
         {
-            return View(_postService.FindStatistics());
+            return View(_photosService.FindStatistics());
         }
 
         [HttpGet]
@@ -42,7 +42,7 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromForm] Post post)
+        public async Task<IActionResult> Add([FromForm] Photo post)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
                     await post.PhotoPath.CopyToAsync(fileStream);
                 }
 
-                _postService.Save(post);
+                _photosService.Save(post);
                 return RedirectToAction(nameof(PagedIndex));
             }
             else
@@ -70,7 +70,7 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
         
         public IActionResult Details([FromRoute] int id)
         {
-            Post post_szczegolowy = _postService.FindBy(id);
+            Photo post_szczegolowy = _photosService.FindBy(id);
 
             if (post_szczegolowy == null)
             {
@@ -94,27 +94,27 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
             if (ModelState.IsValid)
             {
                 comment.Data = DateTime.Now;
-                _postService.AddCommentToPost(comment, comment.PostId);
-                return RedirectToAction("SeeComments", new { id = comment.PostId });
+                _photosService.AddCommentToPost(comment, comment.PhotoId);
+                return RedirectToAction("SeeComments", new { id = comment.PhotoId });
             }
             return View(comment);
         }
         public IActionResult SeeComments([FromRoute] int id)
         {
-            return View(_postService.FindAllComments(id));
+            return View(_photosService.FindAllComments(id));
         }
 
         [Authorize]
         public IActionResult Like([FromRoute] int id)
         {
-            Post post = _postService.FindByIdWithLikes(id);
+            Photo post = _photosService.FindByIdWithLikes(id);
 
             for(int i=0; i<post.Likes.Count(); i++)
             {
                 if(post.Likes[i].User == User.Identity.Name)
                 {
                     Like delete_like = post.Likes[i];
-                    _postService.DeleteLikeFromPost(delete_like, id);
+                    _photosService.DeleteLikeFromPost(delete_like, id);
                     return RedirectToAction(nameof(PagedIndex));
                 }
             }
@@ -122,7 +122,7 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
             Like add_like = new Like();
 
             add_like.User = User.Identity.Name;
-            _postService.AddLikeToPost(add_like, id);
+            _photosService.AddLikeToPost(add_like, id);
 
             if (post == null) return NotFound();
             return RedirectToAction(nameof(PagedIndex));
@@ -131,7 +131,7 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
         [Authorize]
         public IActionResult LikeComment([FromRoute] int id)
         {
-            Comment? comment = _postService.FindCommentByIdWithLikes(id);
+            Comment? comment = _photosService.FindCommentByIdWithLikes(id);
             if (comment is null) return NotFound();
 
             for (int i = 0; i < comment.Likes.Count(); i++)
@@ -139,30 +139,51 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
                 if (comment.Likes[i].User == User.Identity.Name)
                 {
                     LikeForComment delete_like = comment.Likes[i];
-                    _postService.DeleteLikeFromComment(delete_like, id);
-                    return RedirectToAction("SeeComments", new { id = comment.PostId });
+                    _photosService.DeleteLikeFromComment(delete_like, id);
+                    return RedirectToAction("SeeComments", new { id = comment.PhotoId });
                 }
             }
 
             LikeForComment add_like = new LikeForComment();
 
             add_like.User = User.Identity.Name;
-            _postService.AddLikeToComment(add_like, id);
+            _photosService.AddLikeToComment(add_like, id);
 
-            return RedirectToAction("SeeComments", new { id = comment.PostId });
+            return RedirectToAction("SeeComments", new { id = comment.PhotoId });
         }
 
         [Authorize(Roles = "admin")]
-        public IActionResult Delete()
+        public IActionResult Delete([FromRoute] int? id)
         {
-            return View();
+            _photosService.Delete(id);
+            return RedirectToAction(nameof(Statistics));
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public IActionResult Edit()
+        public IActionResult Edit([FromRoute] int? id)
         {
+            Photo? photo = _photosService.FindByIdWithLikesAndComments(id);
+            if (photo == null) return NotFound();
+
+            ViewBag.Id = photo.Id;
+            ViewBag.Nazwa = photo.Nazwa;
+            ViewBag.Miejsce = photo.Miejsce;
+            ViewBag.Opis = photo.Opis;
+
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Edit([FromForm] PhotoTempForEdit photo)
+        {
+            if (ModelState.IsValid)
+            {
+                Photo? find = _photosService.FindByIdWithLikesAndComments(photo.Id);
+                _photosService.UpdateByPhotoTemp(find, photo);
+                return RedirectToAction(nameof(Statistics));
+            }
+            return View(photo);
         }
     }
 }
