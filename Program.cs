@@ -3,6 +3,7 @@ using aplikacja_zdjecia_z_wakacji.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using aplikacja_zdjecia_z_wakacji.Data;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("UserContextConnection") ?? throw new InvalidOperationException("Connection string 'UserContextConnection' not found.");
@@ -17,6 +18,11 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<UserContext>();
 builder.Services.AddScoped<IPhotosService, PhotosServiceEF>();
+
+builder.Services.AddMvc().AddJsonOptions(
+ options => options.JsonSerializerOptions.ReferenceHandler =
+ReferenceHandler.Preserve
+);
 
 var app = builder.Build();
 

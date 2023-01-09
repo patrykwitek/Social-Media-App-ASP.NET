@@ -2,6 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations.Schema;
+using NuGet.Packaging.Signing;
+using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace aplikacja_zdjecia_z_wakacji.Models
 {
@@ -13,7 +16,6 @@ namespace aplikacja_zdjecia_z_wakacji.Models
             Likes = new List<Like>();
             FileName = "file.jpg";
         }
-
         [HiddenInput]
         [Key]
         public int Id { get; set; }
@@ -30,7 +32,7 @@ namespace aplikacja_zdjecia_z_wakacji.Models
 
         [NotMapped]
         [Required(ErrorMessage = "Wybranie pliku wymagane!")]
-        public IFormFile PhotoPath { get; set; }
+        public IFormFile? PhotoPath { get; set; }
 
         public string FileName { get; set; }
 
