@@ -8,7 +8,7 @@ namespace aplikacja_zdjecia_z_wakacji.Services
 
         public bool Delete(int? id);
 
-        public bool Update(Photo post);
+        public bool Update(Photo photo);
 
         public bool UpdateByPhotoTemp(Photo? find, PhotoTempForEdit photo);
 

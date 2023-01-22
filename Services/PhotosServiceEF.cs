@@ -13,11 +13,11 @@ namespace aplikacja_zdjecia_z_wakacji.Services
             _context = context;
         }
 
-        public int Save(Photo book)
+        public int Save(Photo photo)
         {
             try
             {
-                var entityEntry = _context.Photos.Add(book);
+                var entityEntry = _context.Photos.Add(photo);
                 _context.SaveChanges();
                 return entityEntry.Entity.Id;
             }

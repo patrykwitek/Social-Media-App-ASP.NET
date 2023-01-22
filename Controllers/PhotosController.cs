@@ -18,6 +18,7 @@ namespace aplikacja_zdjecia_z_wakacji.Controllers
             _photosService = photosService;
             _hostEnvironment = hostEnvironment;
         }
+
         public IActionResult Index()
         {
             return View(_photosService.FindAll());
