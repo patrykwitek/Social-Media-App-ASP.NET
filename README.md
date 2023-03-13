@@ -1,127 +1,127 @@
 # aplikacja_zdjecia_z_wakacji
 
-Zamys³em aplikacji jest wrzucanie w³asnych zdjêæ z wakacji na stronê. Inni u¿ytkownicy mog¹ polubiæ oraz komentowaæ wstawione zdjêcia.
+ZamysÅ‚em aplikacji jest wrzucanie wÅ‚asnych zdjÄ™Ä‡ z wakacji na stronÄ™. Inni uÅ¼ytkownicy mogÄ… polubiÄ‡ oraz komentowaÄ‡ wstawione zdjÄ™cia.
 
 # Przygotowanie aplikacji do uruchomienia
 
-W pierwszej kolejnoœci nale¿y okreœliæ nazwê serwera oraz nazwê bazy danych w pliku appsettings.json
+W pierwszej kolejnoÅ›ci naleÅ¼y okreÅ›liÄ‡ nazwÄ™ serwera oraz nazwÄ™ bazy danych w pliku appsettings.json
 
-![appsettings](wwwroot/Images/readme/appsettings.jpg "appsettings")
+![appsettings](https://user-images.githubusercontent.com/117681023/224831428-2efb6bce-7437-4be3-98a8-e63f067c4363.JPG)
 
-Nastêpnie w konsoli za pomoc¹ komend
+NastÄ™pnie w konsoli za pomocÄ… komend
 
 * add-migration InitialCreate -context AppDbContext
 * update-database -context AppDbContext
 * add-migration UserInit -context UserContext
 * update-database -context UserContext
 
-tworzymy migracje i wysy³amy dane do bazy tworz¹c encje
+tworzymy migracje i wysyÅ‚amy dane do bazy tworzÄ…c encje
 
-W Microsoft Sql Server Management Studio powinny utworzyæ siê tabele
+W Microsoft Sql Server Management Studio powinny utworzyÄ‡ siÄ™ tabele
 
-![baza_danych_tabele](wwwroot/Images/readme/baza_danych_tabele.jpg "baza_danych_tabele")
+![baza_danych_tabele](https://user-images.githubusercontent.com/117681023/224831492-e31e00ea-df08-4825-b270-9e3955df8f89.JPG)
 
 Teraz aplikacja jest gotowa do uruchomienia
 
-# Funkcjonalnoœæ aplikacji dla u¿ytkownika
+# FunkcjonalnoÅ›Ä‡ aplikacji dla uÅ¼ytkownika
 
-W prawym górnym rogu widniej¹ przyciski do logowania oraz rejestracji
+W prawym gÃ³rnym rogu widniejÄ… przyciski do logowania oraz rejestracji
 
-![logowanie_i_rejestracja](wwwroot/Images/readme/logowanie_i_rejestracja.jpg "logowanie_i_rejestracja")
+![logowanie_i_rejestracja](https://user-images.githubusercontent.com/117681023/224831563-e9bec7f3-a823-48bf-9fdb-1f045902c9d3.JPG)
 
-Po zarejestrowaniu u¿ytkownika zostaje on zapisany do bazy danych, mo¿na wtedy przyst¹piæ do logowania.
+Po zarejestrowaniu uÅ¼ytkownika zostaje on zapisany do bazy danych, moÅ¼na wtedy przystÄ…piÄ‡ do logowania.
 
-Po zalogowaniu w prawym górnym rogu aplikacji widnieje nazwa zalogowanego u¿ytkownika. Po jego klikniêciu otwiera siê okno edycji u¿ytkownika.
+Po zalogowaniu w prawym gÃ³rnym rogu aplikacji widnieje nazwa zalogowanego uÅ¼ytkownika. Po jego klikniÄ™ciu otwiera siÄ™ okno edycji uÅ¼ytkownika.
 
-![user](wwwroot/Images/readme/user.jpg "user")
+![user](https://user-images.githubusercontent.com/117681023/224831607-1547f93c-23df-4333-8d98-08574cbc03b8.JPG)
 
-W celu dodania w³asnego zdjêcia na stronê u¿ytkownik musi klikn¹æ przycisk "Dodaj w³asne zdjêcie" na g³ównej stronie.
+W celu dodania wÅ‚asnego zdjÄ™cia na stronÄ™ uÅ¼ytkownik musi kliknÄ…Ä‡ przycisk "Dodaj wÅ‚asne zdjÄ™cie" na gÅ‚Ã³wnej stronie.
 
-![dodawanie_zdjecia](wwwroot/Images/readme/dodawanie_zdjecia.jpg "dodawanie_zdjecia")
+![dodawanie_zdjecia](https://user-images.githubusercontent.com/117681023/224831660-cbcd2654-4a0b-4f8e-befc-df39c39b00a9.JPG)
 
-Po jego klikniêciu ukazuje siê formularz, po którego wype³nieniu nale¿y klikn¹æ przycisk "Dodaj". 
-W ten sposób u¿ytkownik dodaje swoje zdjêcie na stronê. 
-Je¿eli dane nie zostan¹ wprowadzone, b¹dŸ wprowadzone b³êdnie (_przyk³adowo zbyt du¿a liczba znaków_) zostanie zwrócony odpowiedni komuniktat.
+Po jego klikniÄ™ciu ukazuje siÄ™ formularz, po ktÃ³rego wypeÅ‚nieniu naleÅ¼y kliknÄ…Ä‡ przycisk "Dodaj". 
+W ten sposÃ³b uÅ¼ytkownik dodaje swoje zdjÄ™cie na stronÄ™. 
+JeÅ¼eli dane nie zostanÄ… wprowadzone, bÄ…dÅº wprowadzone bÅ‚Ä™dnie (_przykÅ‚adowo zbyt duÅ¼a liczba znakÃ³w_) zostanie zwrÃ³cony odpowiedni komuniktat.
 
-![formularz_dodawanie_zdjecia](wwwroot/Images/readme/formularz_dodawanie_zdjecia.jpg "formularz_dodawanie_zdjecia")
+![formularz_dodawanie_zdjecia](https://user-images.githubusercontent.com/117681023/224831711-4c471141-6b0b-488d-b0a2-9fa7eb5b8665.JPG)
 
-U¿ytkownik mo¿e polubiæ zdjêcia innych u¿ytkowników. Ko³o przycisku "Polub" wyœwietla siê liczba polubieñ danego zdjêcia. 
-Je¿eli u¿ytkownik ponownie kliknie na ten przycisk polubienie zostanie odebrane.
+UÅ¼ytkownik moÅ¼e polubiÄ‡ zdjÄ™cia innych uÅ¼ytkownikÃ³w. KoÅ‚o przycisku "Polub" wyÅ›wietla siÄ™ liczba polubieÅ„ danego zdjÄ™cia. 
+JeÅ¼eli uÅ¼ytkownik ponownie kliknie na ten przycisk polubienie zostanie odebrane.
 
-![polubienie](wwwroot/Images/readme/polubienie.jpg "polubienie")
+![polubienie](https://user-images.githubusercontent.com/117681023/224831771-4ee9d3e2-1f06-46ed-b9a9-5b15f1b85bf7.JPG)
 
-Kolejn¹ mo¿liwoœci¹ u¿ytkownika jest dodawanie komentarzy. Aby dodaæ komentarz nale¿y klikn¹æ przycisk "Dodaj komentarz" pod postem.
-Po jego klikniêciu pojawia siê formularz do wype³nienia treœci komentarza. 
-Obok przycisku dodania komentarza znajduje siê przycisk "Komentarze" do wyœwietlania komentarzy danego zdjêcia.
+KolejnÄ… moÅ¼liwoÅ›ciÄ… uÅ¼ytkownika jest dodawanie komentarzy. Aby dodaÄ‡ komentarz naleÅ¼y kliknÄ…Ä‡ przycisk "Dodaj komentarz" pod postem.
+Po jego klikniÄ™ciu pojawia siÄ™ formularz do wypeÅ‚nienia treÅ›ci komentarza. 
+Obok przycisku dodania komentarza znajduje siÄ™ przycisk "Komentarze" do wyÅ›wietlania komentarzy danego zdjÄ™cia.
 
-![komentarze](wwwroot/Images/readme/komentarze.jpg "komentarze")
+![komentarze](https://user-images.githubusercontent.com/117681023/224831815-0168a681-2f65-4615-b2f5-da284f0943bb.JPG)
 
-Po klikniêciu przycisku "Komentarze" otwiera siê widok wyœwietlaj¹cy komentarze danego zdjêcia. U¿ytkownicy posiadaj¹ tak¿e mo¿liwoœæ polubienia komentarzy.
+Po klikniÄ™ciu przycisku "Komentarze" otwiera siÄ™ widok wyÅ›wietlajÄ…cy komentarze danego zdjÄ™cia. UÅ¼ytkownicy posiadajÄ… takÅ¼e moÅ¼liwoÅ›Ä‡ polubienia komentarzy.
 
-![wyswietlanie_komentarzy](wwwroot/Images/readme/wyswietlanie_komentarzy.jpg "wyswietlanie_komentarzy")
+![wyswietlanie_komentarzy](https://user-images.githubusercontent.com/117681023/224831870-26ca28f3-5458-4545-8fc5-3443a5f182cb.JPG)
 
-Warto równie¿ wspomnieæ, ¿e strona posiada mechanizm stronnicowania, dziêki czemu na stronie wyœwietlaj¹ siê jedynie trzy zdjêcia, a aby zobaczyæ kolejne trzy nale¿y przejœæ na kolejn¹ stronê.
+Warto rÃ³wnieÅ¼ wspomnieÄ‡, Å¼e strona posiada mechanizm stronnicowania, dziÄ™ki czemu na stronie wyÅ›wietlajÄ… siÄ™ jedynie trzy zdjÄ™cia, a aby zobaczyÄ‡ kolejne trzy naleÅ¼y przejÅ›Ä‡ na kolejnÄ… stronÄ™.
 
-![stronnicowanie](wwwroot/Images/readme/stronnicowanie.jpg "stronnicowanie")
+![stronnicowanie](https://user-images.githubusercontent.com/117681023/224831928-165e0ced-fca1-4e19-8057-798658e6f3f1.JPG)
 
-# Funkcjonalnoœæ aplikacji dla administratora
+# FunkcjonalnoÅ›Ä‡ aplikacji dla administratora
 
 ## Konfiguracja roli admina na serwerze SQL
 
-W pierwszej kolejnoœci za pomoc¹ przycisku do rejestracji tworzymy nowego u¿ytkownika, który bêdzie posiada³ rolê administratora.
+W pierwszej kolejnoÅ›ci za pomocÄ… przycisku do rejestracji tworzymy nowego uÅ¼ytkownika, ktÃ³ry bÄ™dzie posiadaÅ‚ rolÄ™ administratora.
 
-W programie do obs³ugi serwera SQL (_w moim przypadku Microsoft SQL Server Management Studio 18_) w tabeli AspNetRoles dodajemy rolê o nazwie "admin".
+W programie do obsÅ‚ugi serwera SQL (_w moim przypadku Microsoft SQL Server Management Studio 18_) w tabeli AspNetRoles dodajemy rolÄ™ o nazwie "admin".
 
-![rola_admin](wwwroot/Images/readme/rola_admin.jpg "rola_admin")
+![rola_admin](https://user-images.githubusercontent.com/117681023/224832009-25228114-7089-400a-9b2c-4c520ec9c63f.JPG)
 
-Nastêpnie z tabeli AspNetUsers kopiujemy identyfikator u¿ytkownika, któremy chcemy przypisaæ rolê administratora.
-W tabeli AspNetUserRoles przypisujemy danemu identyfikatorowi u¿ytkownika rolê admin.
+NastÄ™pnie z tabeli AspNetUsers kopiujemy identyfikator uÅ¼ytkownika, ktÃ³remy chcemy przypisaÄ‡ rolÄ™ administratora.
+W tabeli AspNetUserRoles przypisujemy danemu identyfikatorowi uÅ¼ytkownika rolÄ™ admin.
 
-![przypisanie_roli](wwwroot/Images/readme/przypisanie_roli.jpg "przypisanie_roli")
+![przypisanie_roli](https://user-images.githubusercontent.com/117681023/224832073-f9fac5ef-4e60-4de5-806e-a902285cf64d.JPG)
 
-W ten sposób przypisaliœmy danemu u¿ytkownikowi rolê administratora.
+W ten sposÃ³b przypisaliÅ›my danemu uÅ¼ytkownikowi rolÄ™ administratora.
 
-## Mo¿liwoœci administratora w aplikacji
+## MoÅ¼liwoÅ›ci administratora w aplikacji
 
-Na samej górze strony obok przycisku do dodawania zdjêcia widnieje przycisk "statystyki", który mo¿e klikn¹æ jedynie u¿ytkownik z rol¹ administratora.
+Na samej gÃ³rze strony obok przycisku do dodawania zdjÄ™cia widnieje przycisk "statystyki", ktÃ³ry moÅ¼e kliknÄ…Ä‡ jedynie uÅ¼ytkownik z rolÄ… administratora.
 
-![statystyki](wwwroot/Images/readme/statystyki.jpg "statystyki")
+![statystyki](https://user-images.githubusercontent.com/117681023/224832119-4bdf4582-e390-4a86-af89-4df4756fceee.JPG)
 
-Po jego klikniêciu pojawia siê widok z list¹ wszystkich zdjêæ posortowanych po ID wraz z ich informacjami.
-W ka¿dym wierszy obok zdjêæ widniej¹ przyciski "Edytuj" oraz "Usuñ".
-Po klikniêciu przycisku do edycji, administratorowi wyœwietla siê wype³niony formularz do edycji wybranego zdjêcia (_dane wyœwietlane automatycznie w formularzu s¹ starymi danymi zdjêcia_).
-Natomiast po klikniêciu przycisku "Usuñ" dane zdjêcie zostanie usuniête z bazy danych.
+Po jego klikniÄ™ciu pojawia siÄ™ widok z listÄ… wszystkich zdjÄ™Ä‡ posortowanych po ID wraz z ich informacjami.
+W kaÅ¼dym wierszy obok zdjÄ™Ä‡ widniejÄ… przyciski "Edytuj" oraz "UsuÅ„".
+Po klikniÄ™ciu przycisku do edycji, administratorowi wyÅ›wietla siÄ™ wypeÅ‚niony formularz do edycji wybranego zdjÄ™cia (_dane wyÅ›wietlane automatycznie w formularzu sÄ… starymi danymi zdjÄ™cia_).
+Natomiast po klikniÄ™ciu przycisku "UsuÅ„" dane zdjÄ™cie zostanie usuniÄ™te z bazy danych.
 
-![statystyki_zdjec](wwwroot/Images/readme/statystyki_zdjec.jpg "statystyki_zdjec")
+![statystyki_zdjec](https://user-images.githubusercontent.com/117681023/224832170-d3eb737a-fb75-4ab4-87b8-1fdb2cc4b3de.JPG)
 
 # API
 
-Aplikacja obs³uguje równie¿ technologiê API.
+Aplikacja obsÅ‚uguje rÃ³wnieÅ¼ technologiÄ™ API.
 
-Najproœciej przetestowaæ dzia³anie API w rozszerzeniu do przegl¹darki - narzêdziu Boomerang.
+NajproÅ›ciej przetestowaÄ‡ dziaÅ‚anie API w rozszerzeniu do przeglÄ…darki - narzÄ™dziu Boomerang.
 
-* GET wszystkich zdjêæ
+* GET wszystkich zdjÄ™Ä‡
 
-![get](wwwroot/Images/readme/get.jpg "get")
+![get](https://user-images.githubusercontent.com/117681023/224832246-d06a53a8-3974-46b4-8e13-3409a3abc997.JPG)
 
-* GET konkretnego zdjêcia
+* GET konkretnego zdjÄ™cia
 
-![get_by_id](wwwroot/Images/readme/get_by_id.jpg "get_by_id")
+![get_by_id](https://user-images.githubusercontent.com/117681023/224832290-e381366d-29da-4b2f-8dab-3e16f4b5080b.JPG)
 
 * POST
 
-![post](wwwroot/Images/readme/post.jpg "post")
+![post](https://user-images.githubusercontent.com/117681023/224832346-258da519-90f9-4983-ab26-79ff5cc61d40.JPG)
 
 * PUT
 
-![put](wwwroot/Images/readme/put.jpg "put")
+![put](https://user-images.githubusercontent.com/117681023/224832389-3aa4a079-8b04-48f7-bda5-54169219aa90.JPG)
 
 * DELETE
 
-![delete](wwwroot/Images/readme/delete.jpg "delete")
+![delete](https://user-images.githubusercontent.com/117681023/224832437-2dee0238-9b36-4c3b-8762-593d2f313535.JPG)
 
 # Testowanie aplikacji
 
-W projekcie s¹ równie¿ przygotowane testy jednostkowe kontrolera API. Aby je uruchomiæ nale¿y prawym przyciskiem myszy klikn¹æ na PhotosControllerTest i wybraæ opcjê "Uruchom testy".
+W projekcie sÄ… rÃ³wnieÅ¼ przygotowane testy jednostkowe kontrolera API. Aby je uruchomiÄ‡ naleÅ¼y prawym przyciskiem myszy kliknÄ…Ä‡ na PhotosControllerTest i wybraÄ‡ opcjÄ™ "Uruchom testy".
 
-![testowanie](wwwroot/Images/readme/testowanie.jpg "testowanie")
+![testowanie](https://user-images.githubusercontent.com/117681023/224832487-5e81d432-8233-443d-8a06-c53b971bcee8.JPG)
