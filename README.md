@@ -1,5 +1,7 @@
-# aplikacja_zdjecia_z_wakacji
+# Social-Media Application To Share Vacations Photos 🌅
+> ASP.NET Social-Media Application
 
+[PL]
 Zamysłem aplikacji jest wrzucanie własnych zdjęć z wakacji na stronę. Inni użytkownicy mogą polubić oraz komentować wstawione zdjęcia.
 
 # Przygotowanie aplikacji do uruchomienia
